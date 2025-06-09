@@ -1,10 +1,14 @@
 package main
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"os"
+	"slices"
 	"time"
+
+	"github.com/olekukonko/tablewriter"
 )
 
 type TodoList struct {
@@ -17,12 +21,18 @@ func (tl *TodoList) addTodo(name string) Todo {
 	return Todo{Name: name, Created: created}
 }
 
-func (tl *TodoList) listTodo() []Todo {
-	return tl.List
+func (tl *TodoList) listTodo() {
+	table := tablewriter.NewWriter(os.Stdout)
+	table.Header([]string{"Id", "Name", "Created"})
+	for index, todo := range *tl.List {
+		appendString := fmt.Sprintf("{%s, %s, %T}", index, todo.Name, todo.Created)
+		table.Append(appendString)
+	}
+	table.Render()
 }
 
 func (tl *TodoList) remTodo(index int) {
-	tl.List
+	tl.List = slices.Delete(tl.List, index, index)
 }
 
 type Todo struct {
