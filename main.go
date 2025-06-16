@@ -1,6 +1,7 @@
 package main
 
 import (
+<<<<<<< HEAD
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -94,4 +95,11 @@ func writeTodoFile(file string, data []byte) error {
 
 func newTodoList(name string) TodoList {
 	return TodoList{IdInc: 0, ListName: name, List: nil}
+=======
+	"github.com/sholt0r/todo/cmd"
+)
+
+func main() {
+	cmd.Execute()
+>>>>>>> 9e1ccfa (Big commit, much fun)
 }
